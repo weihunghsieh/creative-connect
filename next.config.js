@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App Router is now stable in Next.js 13.4+
-  trailingSlash: true,
-  images: {
-    unoptimized: true
-  }
+  // Clean configuration for Next.js 13.5+
 }
 
 module.exports = nextConfig
