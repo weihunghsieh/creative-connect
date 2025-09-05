@@ -20,14 +20,14 @@ export default function Home() {
                     </g>
                   </svg>
                 </div>
-                <span className="text-xl font-bold text-white hover:text-gray-300">Wroom</span>
+                <span className="text-xl font-bold text-white hover:text-gray-300">CreativeConnect</span>
               </Link>
             </div>
             <div className="flex items-center space-x-8">
               <nav className="flex items-center space-x-8">
                 <Link href="/" className="text-blue-400 font-medium">Explore</Link>
                 <Link href="/features" className="text-gray-400 hover:text-white font-medium transition-colors">Features</Link>
-                <Link href="/about" className="text-gray-400 hover:text-white font-medium transition-colors">About Wroom</Link>
+                <Link href="/about" className="text-gray-400 hover:text-white font-medium transition-colors">About</Link>
               </nav>
               <div className="flex items-center space-x-3">
                 <button className="p-2 text-gray-400 hover:text-white">
@@ -114,7 +114,7 @@ export default function Home() {
 
           {/* Genre Filter Tags */}
           <div className="flex flex-wrap gap-2 mb-8">
-            {['Action', 'Sci-Fi', 'Action', 'Horror', 'Action', 'Horror', 'Action', 'Action'].map((genre, index) => (
+            {['Action', 'Sci-Fi', 'Horror', 'Comedy', 'Drama', 'Thriller', 'Romance', 'Documentary'].map((genre, index) => (
               <button 
                 key={index}
                 className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-sm hover:bg-gray-700 transition-colors border border-gray-700"
@@ -134,13 +134,10 @@ export default function Home() {
             {[
               { title: "Galactic Odyssey: The Awakening", type: "Trailer", genre: "Sci-Fi", bg: "from-orange-600 to-red-600" },
               { title: "Nightmare in the Nebula", type: "Script", genre: "Horror", bg: "from-gray-800 to-black" },
-              { title: "Galactic Odyssey: The Awakening", type: "Trailer", genre: "Sci-Fi", bg: "from-orange-600 to-red-600" },
-              { title: "Nightmare in the Nebula", type: "Script", genre: "Horror", bg: "from-gray-800 to-black" },
-              { title: "Galactic Odyssey: The Awakening", type: "Trailer", genre: "Sci-Fi", bg: "from-orange-600 to-red-600" },
-              { title: "Nightmare in the Nebula", type: "Script", genre: "Horror", bg: "from-gray-800 to-black" },
-              { title: "Galactic Odyssey: The Awakening", type: "Trailer", genre: "Sci-Fi", bg: "from-orange-600 to-red-600" },
-              { title: "Nightmare in the Nebula", type: "Script", genre: "Horror", bg: "from-gray-800 to-black" },
-              { title: "Galactic Odyssey: The Awakening", type: "Trailer", genre: "Sci-Fi", bg: "from-orange-600 to-red-600" }
+              { title: "Urban Legends: Downtown", type: "Trailer", genre: "Thriller", bg: "from-purple-600 to-blue-600" },
+              { title: "Love in the Digital Age", type: "Script", genre: "Romance", bg: "from-pink-600 to-rose-600" },
+              { title: "The Last Sanctuary", type: "Trailer", genre: "Drama", bg: "from-green-600 to-teal-600" },
+              { title: "Silicon Valley Secrets", type: "Script", genre: "Comedy", bg: "from-yellow-600 to-orange-600" }
             ].map((item, i) => {
               const linkUrl = item.type === "Script" ? `/script/${i + 1}` : `/video/${i + 1}`;
               return (
@@ -155,11 +152,9 @@ export default function Home() {
                               STORY
                             </div>
                           )}
-                          {item.genre === "Sci-Fi" && (
-                            <div className="bg-white text-black px-3 py-1 rounded font-bold text-lg">
-                              SCI-FI
-                            </div>
-                          )}
+                          <div className="bg-white text-black px-3 py-1 rounded font-bold text-sm">
+                            {item.genre.toUpperCase()}
+                          </div>
                         </div>
                         {item.type !== "Script" && (
                           <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -204,32 +199,34 @@ export default function Home() {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Array.from({ length: 6 }).map((_, i) => {
-                  const isScript = i === 1 || i === 4;
-                  return (
-                    <div key={i} className="relative group">
-                      <div className={`aspect-[3/4] bg-gradient-to-b ${isScript ? 'from-gray-800 to-black' : 'from-orange-600 to-red-600'} rounded-lg overflow-hidden`}>
-                        <div className="h-full flex flex-col justify-between p-3">
-                          <div className="flex justify-between items-start">
-                            {isScript && (
-                              <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
-                                STORY
-                              </div>
-                            )}
-                            <div className="bg-white text-black px-2 py-1 rounded font-bold text-sm">
-                              {isScript ? 'HORROR' : 'SCI-FI'}
+                {[
+                  { title: "Galactic Odyssey: The Awakening", genre: "SCI-FI", isScript: false },
+                  { title: "Nightmare in the Nebula", genre: "HORROR", isScript: true },
+                  { title: "Urban Legends", genre: "THRILLER", isScript: false },
+                  { title: "Love in Digital Age", genre: "ROMANCE", isScript: true },
+                  { title: "The Last Sanctuary", genre: "DRAMA", isScript: false },
+                  { title: "Silicon Valley Secrets", genre: "COMEDY", isScript: true }
+                ].map((item, i) => (
+                  <div key={i} className="relative group">
+                    <div className={`aspect-[3/4] bg-gradient-to-b ${item.isScript ? 'from-gray-800 to-black' : 'from-orange-600 to-red-600'} rounded-lg overflow-hidden`}>
+                      <div className="h-full flex flex-col justify-between p-3">
+                        <div className="flex justify-between items-start">
+                          {item.isScript && (
+                            <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
+                              STORY
                             </div>
+                          )}
+                          <div className="bg-white text-black px-2 py-1 rounded font-bold text-sm">
+                            {item.genre}
                           </div>
-                          <div className="text-white">
-                            <h4 className="font-bold text-xs mb-1">
-                              {isScript ? 'Nightmare in the Nebula' : 'Galactic Odyssey: The Awakening'}
-                            </h4>
-                          </div>
+                        </div>
+                        <div className="text-white">
+                          <h4 className="font-bold text-xs mb-1">{item.title}</h4>
                         </div>
                       </div>
                     </div>
-                  )
-                })}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -249,32 +246,34 @@ export default function Home() {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Array.from({ length: 6 }).map((_, i) => {
-                  const isScript = i === 0 || i === 3;
-                  return (
-                    <div key={i} className="relative group">
-                      <div className={`aspect-[3/4] bg-gradient-to-b ${isScript ? 'from-gray-800 to-black' : 'from-orange-600 to-red-600'} rounded-lg overflow-hidden`}>
-                        <div className="h-full flex flex-col justify-between p-3">
-                          <div className="flex justify-between items-start">
-                            {isScript && (
-                              <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
-                                STORY
-                              </div>
-                            )}
-                            <div className="bg-white text-black px-2 py-1 rounded font-bold text-sm">
-                              {isScript ? 'HORROR' : 'SCI-FI'}
+                {[
+                  { title: "Future Wars Trilogy", genre: "SCI-FI", isScript: false },
+                  { title: "Whispers in the Dark", genre: "HORROR", isScript: true },
+                  { title: "Neon Dreams", genre: "CYBERPUNK", isScript: false },
+                  { title: "Midnight Express", genre: "THRILLER", isScript: true },
+                  { title: "Digital Renaissance", genre: "DRAMA", isScript: false },
+                  { title: "Quantum Hearts", genre: "ROMANCE", isScript: true }
+                ].map((item, i) => (
+                  <div key={i} className="relative group">
+                    <div className={`aspect-[3/4] bg-gradient-to-b ${item.isScript ? 'from-gray-800 to-black' : 'from-purple-600 to-blue-600'} rounded-lg overflow-hidden`}>
+                      <div className="h-full flex flex-col justify-between p-3">
+                        <div className="flex justify-between items-start">
+                          {item.isScript && (
+                            <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
+                              STORY
                             </div>
+                          )}
+                          <div className="bg-white text-black px-2 py-1 rounded font-bold text-sm">
+                            {item.genre}
                           </div>
-                          <div className="text-white">
-                            <h4 className="font-bold text-xs mb-1">
-                              {isScript ? 'Nightmare in the Nebula' : 'Galactic Odyssey: The Awakening'}
-                            </h4>
-                          </div>
+                        </div>
+                        <div className="text-white">
+                          <h4 className="font-bold text-xs mb-1">{item.title}</h4>
                         </div>
                       </div>
                     </div>
-                  )
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -285,7 +284,7 @@ export default function Home() {
       <footer className="bg-black py-8 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 Wroom AI. All Rights Reserved.
+            © 2025 CreativeConnect. All Rights Reserved.
           </p>
         </div>
       </footer>
